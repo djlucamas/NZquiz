@@ -73,9 +73,17 @@ quiz_data = {
 # Streamlit app
 st.title("NZ General Knowledge Quiz")
 category = st.selectbox("Select a Category:", list(quiz_data.keys()))
+
+if "question" not in st.session_state:
+    st.session_state.question = ""
+    st.session_state.answer = ""
+
 if st.button("Get Question"):
-    question, answer = random.choice(quiz_data[category])
-    st.write(f"### {question}")
-    if st.button("Show Answer"):
-        st.write(f"**Answer:** {answer}")
+    st.session_state.question, st.session_state.answer = random.choice(quiz_data[category])
+
+st.write(f"### {st.session_state.question}")
+
+if st.button("Show Answer"):
+    st.write(f"**Answer:** {st.session_state.answer}")
+
 
